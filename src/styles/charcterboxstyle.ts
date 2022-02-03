@@ -25,9 +25,20 @@ export const NameContainer = styled.div`
   position: relative;
   top: 0;
   left: 0;
-  h5 {
+  z-index: 1;
+  span {
+    width: 120px;
     position: absolute;
-    left: -3vw;
-    font-size: 12px;
+    left: -6.3vw;
+    top: 5vh;
+    text-align: center;
+    background: #6c69cc;
+    color: white;
+    border-radius: 10px;
+    h5 {
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
   }
 `;

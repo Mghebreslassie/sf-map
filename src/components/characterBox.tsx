@@ -8,26 +8,40 @@ import { useState } from "react";
 
 type IProps = {
   char: CharacterData;
+  setCurrentMarker: React.Dispatch<React.SetStateAction<string>>;
+  currentMarker: string;
 };
 
-const CharacterBox: React.FC<IProps> = ({ char }) => {
+const CharacterBox: React.FC<IProps> = ({
+  char,
+  setCurrentMarker,
+  currentMarker,
+}) => {
   const [showName, setShowName] = useState(false);
 
   return (
     <PositionContainer
-      onMouseEnter={() => setShowName(true)}
-      onMouseLeave={() => setShowName(false)}
+      onMouseEnter={() => {
+        setShowName(true);
+        setCurrentMarker(char.name);
+      }}
+      onMouseLeave={() => {
+        setCurrentMarker("");
+        setShowName(false);
+      }}
     >
       <MainContainer>
         <img
           src={require(`../assets/3rdstrike/${char.image}`)}
           alt=""
-          style={{ width: "100%", objectFit: "contain" }}
+          style={{ height: "100%", objectFit: "contain" }}
         />
       </MainContainer>
       {showName && (
         <NameContainer>
-          <h5>{char.name}</h5>
+          <span>
+            <h5>{char.name}</h5>
+          </span>
         </NameContainer>
       )}
     </PositionContainer>

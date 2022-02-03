@@ -13,6 +13,7 @@ import {
 import CharacterContainer from "./components/characterContainer";
 
 const App: React.FC = () => {
+  const [currentMarker, setCurrentMarker] = useState("");
   const [charObjs, setCharObjs] = useState(characterData);
   const [showPopup, togglePopup] = useState(false);
   const [characterPopup, setCharacterpopup] = useState(characterData[0]);
@@ -35,11 +36,14 @@ const App: React.FC = () => {
         mapStyle={"mapbox://styles/modiggs23/ckyxq66wb001n14nl92hsfekx"}
         mapboxApiAccessToken={process.env.REACT_APP_MAP_API}
       >
-        {charObjs.map((char) => {
+        {charObjs.map((char, index) => {
           return (
             <>
               <Marker latitude={char.lat} longitude={char.lon}>
                 <Room
+                  style={{
+                    fill: currentMarker === char.name ? "gold" : "black",
+                  }}
                   onClick={() => {
                     setCharacterpopup(char);
                     togglePopup(true);
@@ -85,7 +89,10 @@ const App: React.FC = () => {
           </Popup>
         )}
       </ReactMapGl>
-      <CharacterContainer />
+      <CharacterContainer
+        setCurrentMarker={setCurrentMarker}
+        currentMarker={currentMarker}
+      />
     </div>
   );
 };
