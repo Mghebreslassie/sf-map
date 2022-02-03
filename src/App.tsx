@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ReactMapGl, { Marker, ViewportProps, Popup } from "react-map-gl";
 import { Room } from "@material-ui/icons";
-import CharacterBox from "./components/characterBox";
 import { characterData } from "./data/data";
 import {
   BottomDiv,
@@ -11,8 +10,10 @@ import {
   TextContainer,
   TopDiv,
 } from "./styles/characterinfostyle";
+import CharacterContainer from "./components/characterContainer";
 
 const App: React.FC = () => {
+  const [charObjs, setCharObjs] = useState(characterData);
   const [showPopup, togglePopup] = useState(false);
   const [characterPopup, setCharacterpopup] = useState(characterData[0]);
   const [viewport, setViewport] = useState<ViewportProps>({
@@ -34,7 +35,7 @@ const App: React.FC = () => {
         mapStyle={"mapbox://styles/modiggs23/ckyxq66wb001n14nl92hsfekx"}
         mapboxApiAccessToken={process.env.REACT_APP_MAP_API}
       >
-        {characterData.map((char) => {
+        {charObjs.map((char) => {
           return (
             <>
               <Marker latitude={char.lat} longitude={char.lon}>
@@ -84,7 +85,7 @@ const App: React.FC = () => {
           </Popup>
         )}
       </ReactMapGl>
-      <CharacterBox />
+      <CharacterContainer />
     </div>
   );
 };
