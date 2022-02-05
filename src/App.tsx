@@ -1,5 +1,10 @@
-import { useState } from "react";
-import ReactMapGl, { Marker, ViewportProps, Popup } from "react-map-gl";
+import { useEffect, useState } from "react";
+import ReactMapGl, {
+  Marker,
+  ViewportProps,
+  Popup,
+  FlyToInterpolator,
+} from "react-map-gl";
 import { Room } from "@material-ui/icons";
 import { characterData } from "./data/data";
 import {
@@ -15,7 +20,7 @@ import CharacterContainer from "./components/characterContainer";
 const App: React.FC = () => {
   const [currentMarker, setCurrentMarker] = useState("");
   const [charObjs, setCharObjs] = useState(characterData);
-  const [showPopup, togglePopup] = useState(false);
+  const [showPopup, togglePopup] = useState(true);
   const [characterPopup, setCharacterpopup] = useState(characterData[0]);
   const [viewport, setViewport] = useState<ViewportProps>({
     width: 1000,
@@ -24,10 +29,13 @@ const App: React.FC = () => {
     longitude: 0,
     zoom: 2,
   });
+
   return (
     <div className="App">
       <ReactMapGl
         {...viewport}
+        transitionDuration={1000}
+        transitionInterpolator={new FlyToInterpolator()}
         onClick={(e) => {
           const [longitude, latitude] = e.lngLat;
           setViewport({ ...viewport, longitude, latitude, zoom: 4 });
@@ -92,6 +100,10 @@ const App: React.FC = () => {
       <CharacterContainer
         setCurrentMarker={setCurrentMarker}
         currentMarker={currentMarker}
+        setViewport={setViewport}
+        viewport={viewport}
+        characterPopup={characterPopup}
+        setCharacterPopup={setCharacterpopup}
       />
     </div>
   );
