@@ -64,6 +64,7 @@ const CharacterContainer: React.FC<IProps> = ({
       {characterData.map((char) => {
         return (
           <CharacterBox
+            key={char.id}
             char={char}
             setCurrentMarker={setCurrentMarker}
             currentMarker={currentMarker}

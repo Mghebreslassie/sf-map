@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactMapGl, {
   Marker,
   ViewportProps,
@@ -19,7 +19,7 @@ import CharacterContainer from "./components/characterContainer";
 
 const App: React.FC = () => {
   const [currentMarker, setCurrentMarker] = useState("");
-  const [charObjs, setCharObjs] = useState(characterData);
+  const [charObjs] = useState(characterData);
   const [showPopup, togglePopup] = useState(true);
   const [characterPopup, setCharacterpopup] = useState(characterData[0]);
   const [viewport, setViewport] = useState<ViewportProps>({
@@ -46,7 +46,7 @@ const App: React.FC = () => {
       >
         {charObjs.map((char, index) => {
           return (
-            <>
+            <div key={char.id}>
               <Marker latitude={char.lat} longitude={char.lon}>
                 <Room
                   style={{
@@ -58,7 +58,7 @@ const App: React.FC = () => {
                   }}
                 />
               </Marker>
-            </>
+            </div>
           );
         })}
         {showPopup && (
