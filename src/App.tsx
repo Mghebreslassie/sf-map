@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import ReactMapGl, { Marker, Popup, ViewState } from "react-map-gl";
+import React, { useState, useRef, useCallback } from "react";
+import ReactMapGl, { Marker, Popup, ViewState, MapRef } from "react-map-gl";
 import { Room } from "@material-ui/icons";
 import { characterData } from "./data/data";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -26,15 +26,32 @@ const App: React.FC = () => {
     pitch: 0,
     padding: { left: 0, right: 0, top: 0, bottom: 0 },
   });
+  const mapRef = useRef<any>();
 
+  const onSelectCity = ({
+    longitude,
+    latitude,
+  }: {
+    longitude: number;
+    latitude: number;
+  }) => {
+    console.log(longitude, latitude);
+    mapRef.current?.flyTo({
+      center: [longitude, latitude],
+      duration: 2000,
+      zoom: 6,
+    });
+  };
   return (
     <div className="App">
       <ReactMapGl
         {...viewport}
         onClick={(e) => {
           const { lng, lat } = e.lngLat;
-          setViewport({ ...viewport, longitude: lng, latitude: lat, zoom: 4 });
+          onSelectCity({ latitude: lat, longitude: lng });
+          // setViewport({ ...viewport, longitude: lng, latitude: lat, zoom: 4 });
         }}
+        ref={mapRef}
         onMove={(e) => setViewport(e.viewState)}
         style={{ width: "100vw", height: "500px" }}
         mapStyle={"mapbox://styles/modiggs23/ckyxq66wb001n14nl92hsfekx"}
@@ -100,6 +117,7 @@ const App: React.FC = () => {
         viewport={viewport}
         characterPopup={characterPopup}
         setCharacterPopup={setCharacterpopup}
+        onSelectCity={onSelectCity}
       />
     </div>
   );

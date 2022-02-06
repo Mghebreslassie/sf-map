@@ -15,6 +15,13 @@ type IProps = {
   setCharacterPopup: React.Dispatch<React.SetStateAction<CharacterData>>;
   setViewport: React.Dispatch<React.SetStateAction<ViewState>>;
   viewport: ViewState;
+  onSelectCity: ({
+    longitude,
+    latitude,
+  }: {
+    longitude: number;
+    latitude: number;
+  }) => void;
 };
 
 const CharacterBox: React.FC<IProps> = ({
@@ -25,6 +32,7 @@ const CharacterBox: React.FC<IProps> = ({
   viewport,
   characterPopup,
   setCharacterPopup,
+  onSelectCity,
 }) => {
   const [showName, setShowName] = useState(false);
 
@@ -32,12 +40,7 @@ const CharacterBox: React.FC<IProps> = ({
     <PositionContainer
       onClick={() => {
         setCharacterPopup(char);
-        setViewport({
-          ...viewport,
-          latitude: char.lat,
-          longitude: char.lon,
-          zoom: 10,
-        });
+        onSelectCity({ longitude: char.lon, latitude: char.lat });
       }}
       onMouseEnter={() => {
         setShowName(true);

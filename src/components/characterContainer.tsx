@@ -12,6 +12,13 @@ type IProps = {
   setCharacterPopup: React.Dispatch<React.SetStateAction<CharacterData>>;
   viewport: ViewState;
   setViewport: React.Dispatch<React.SetStateAction<ViewState>>;
+  onSelectCity: ({
+    longitude,
+    latitude,
+  }: {
+    longitude: number;
+    latitude: number;
+  }) => void;
 };
 
 const CharacterContainer: React.FC<IProps> = ({
@@ -21,6 +28,7 @@ const CharacterContainer: React.FC<IProps> = ({
   viewport,
   characterPopup,
   setCharacterPopup,
+  onSelectCity,
 }) => {
   return (
     <MainContainer>
@@ -35,6 +43,7 @@ const CharacterContainer: React.FC<IProps> = ({
             viewport={viewport}
             characterPopup={characterPopup}
             setCharacterPopup={setCharacterPopup}
+            onSelectCity={onSelectCity}
           />
         );
       })}
