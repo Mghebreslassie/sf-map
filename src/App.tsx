@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import ReactMapGl, {
-  Marker,
-  ViewportProps,
-  Popup,
-  FlyToInterpolator,
-} from "react-map-gl";
+import ReactMapGl, { Marker, Popup, ViewState } from "react-map-gl";
 import { Room } from "@material-ui/icons";
 import { characterData } from "./data/data";
+import "mapbox-gl/dist/mapbox-gl.css";
 import {
   BottomDiv,
   CharacterAvatar,
@@ -22,29 +18,29 @@ const App: React.FC = () => {
   const [charObjs] = useState(characterData);
   const [showPopup, togglePopup] = useState(true);
   const [characterPopup, setCharacterpopup] = useState(characterData[0]);
-  const [viewport, setViewport] = useState<ViewportProps>({
-    width: 1000,
-    height: 1000,
+  const [viewport, setViewport] = useState<ViewState>({
     latitude: 0,
     longitude: 0,
     zoom: 2,
+    bearing: 0,
+    pitch: 0,
+    padding: { left: 0, right: 0, top: 0, bottom: 0 },
   });
 
   return (
     <div className="App">
       <ReactMapGl
         {...viewport}
-        transitionDuration={1000}
-        transitionInterpolator={new FlyToInterpolator()}
         onClick={(e) => {
-          const [longitude, latitude] = e.lngLat;
-          setViewport({ ...viewport, longitude, latitude, zoom: 4 });
+          const { lng, lat } = e.lngLat;
+          setViewport({ ...viewport, longitude: lng, latitude: lat, zoom: 4 });
         }}
-        onViewportChange={(e: ViewportProps) => setViewport(e)}
+        onMove={(e) => setViewport(e.viewState)}
+        style={{ width: "100vw", height: "500px" }}
         mapStyle={"mapbox://styles/modiggs23/ckyxq66wb001n14nl92hsfekx"}
-        mapboxApiAccessToken={process.env.REACT_APP_MAP_API}
+        mapboxAccessToken={process.env.REACT_APP_MAP_API}
       >
-        {charObjs.map((char, index) => {
+        {charObjs.map((char) => {
           return (
             <div key={char.id}>
               <Marker latitude={char.lat} longitude={char.lon}>

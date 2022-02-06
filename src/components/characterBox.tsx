@@ -6,53 +6,15 @@ import {
 } from "../styles/charcterboxstyle";
 import { CharacterData } from "../data/data";
 import { useState } from "react";
-import { TransitionInterpolator } from "react-map-gl";
+import { ViewState } from "react-map-gl";
 type IProps = {
   char: CharacterData;
   setCurrentMarker: React.Dispatch<React.SetStateAction<string>>;
   currentMarker: string;
   characterPopup: CharacterData;
   setCharacterPopup: React.Dispatch<React.SetStateAction<CharacterData>>;
-  setViewport: React.Dispatch<
-    React.SetStateAction<
-      Partial<{
-        width: number;
-        height: number;
-        latitude: number;
-        longitude: number;
-        zoom: number;
-        bearing: number;
-        pitch: number;
-        altitude: number;
-        maxZoom: number;
-        minZoom: number;
-        maxPitch: number;
-        minPitch: number;
-        transitionDuration: number | "auto";
-        transitionEasing: (t: number) => number;
-        transitionInterpolator: TransitionInterpolator;
-        transitionInterruption: number;
-      }>
-    >
-  >;
-  viewport: Partial<{
-    width: number;
-    height: number;
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    bearing: number;
-    pitch: number;
-    altitude: number;
-    maxZoom: number;
-    minZoom: number;
-    maxPitch: number;
-    minPitch: number;
-    transitionDuration: number | "auto";
-    transitionEasing: (t: number) => number;
-    transitionInterpolator: TransitionInterpolator;
-    transitionInterruption: number;
-  }>;
+  setViewport: React.Dispatch<React.SetStateAction<ViewState>>;
+  viewport: ViewState;
 };
 
 const CharacterBox: React.FC<IProps> = ({
