@@ -20,7 +20,7 @@
     "npm-check": "^5.9.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-map-gl": "^7.0.1",
+    "react-map-gl": "^5.2.11",
     "react-redux": "^7.2.6",
     "react-scripts": "^5.0.0",
     "redux": "^4.1.2",
@@ -28,7 +28,8 @@
     "styled-components": "^5.3.3",
     "typescript": "^4.5.5",
     "urix": "^0.1.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "worker-loader": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
