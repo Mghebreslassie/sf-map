@@ -1,3 +1,4 @@
+import React from "react";
 import { MainContainer } from "../styles/charactercontainer";
 import CharacterBox from "./characterBox";
 import { characterData } from "../data/data";
