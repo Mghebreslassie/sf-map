@@ -16,8 +16,11 @@ import CharacterContainer from "./components/characterContainer";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass =
-  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+// @ts-ignore
+mapboxgl.workerClass = MapboxWorker;
 const App: React.FC = () => {
   const [currentMarker, setCurrentMarker] = useState("");
   const [charObjs] = useState(characterData);
