@@ -21,6 +21,7 @@ import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker";
 // eslint-disable-next-line import/no-webpack-loader-syntax
 // @ts-ignore
 mapboxgl.workerClass = MapboxWorker;
+
 const App: React.FC = () => {
   const [currentMarker, setCurrentMarker] = useState("");
   const [charObjs] = useState(characterData);
@@ -48,12 +49,14 @@ const App: React.FC = () => {
       center: [longitude, latitude],
       duration: 2000,
       zoom: 6,
+      pitch: 0,
     });
   };
   return (
     <div className="App">
       <ReactMapGl
         {...viewport}
+        maxPitch={60}
         onClick={(e) => {
           const { lng, lat } = e.lngLat;
           onSelectCity({ latitude: lat, longitude: lng });
